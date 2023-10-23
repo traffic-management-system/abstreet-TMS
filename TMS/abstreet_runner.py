@@ -2,7 +2,7 @@ import requests
 import datetime
 from enum import Enum
 
-class abstreet_runner:
+class runner:
     server_is_running = True
     timer = datetime.datetime(1, 1, 1) # filled just to avoid errors 
     
@@ -27,11 +27,11 @@ class abstreet_runner:
         state = None
 
         all_signals = requests.get("http://localhost:5000/traffic-signals/get-all-current-state").json() # this is bad and will probably cause memory issues,
-        if all_signals['16916']['current_stage_idx'] == 0:                                               # but there's no other way to do it 
-            state = traffic_signal.GREEN
+        if all_signals['551']['current_stage_idx'] == 0:                                                 # but there's no other way to do it 
+            state = traffic_signal.GREEN.value
         else:
-            state = traffic_signal.RED
-
+            state = traffic_signal.RED.value
+        coordinates = [0, 0]
         coordinates[0] = current_time_in_seconds
         coordinates[1] = state
 
